@@ -77,7 +77,10 @@ class Mission:
     @classmethod
     def from_csv(cls, file_name: str):
         mission_df = pd.read_csv(file_name)
-        return cls(mission_df['reference'], mission_df['cave_height'], mission_df['cave_depth'])
+        reference = mission_df['reference'].values
+        cave_height = mission_df['cave_height'].values
+        cave_depth = mission_df['cave_depth'].values
+        return cls(reference, cave_height, cave_depth)
         
 
 
