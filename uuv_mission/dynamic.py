@@ -82,7 +82,6 @@ class Mission:
         cave_height = mission_df['cave_height'].values
         cave_depth = mission_df['cave_depth'].values
         return cls(reference, cave_height, cave_depth)
-        
 
 
 class ClosedLoop:
@@ -102,8 +101,7 @@ class ClosedLoop:
 
         for t in range(T):
             positions[t] = self.plant.get_position()
-            observation_t = self.plant.get_depth()
-            actions[t] = controller(1, 1, positions[t, 1], mission.reference)
+            actions[t] = self.controller(positions[:, 1], mission.reference, t)
             self.plant.transition(actions[t], disturbances[t])
 
         return Trajectory(positions)
